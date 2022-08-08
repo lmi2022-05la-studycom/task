@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  before_action :require_logged_in, only: [:show]
+  before_action :already_logged_in, only: [:new, :create]
   def show
-    @user = User.last
+    @user = current_user
   end
 
   def new
