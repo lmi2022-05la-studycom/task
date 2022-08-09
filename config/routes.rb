@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'tasks/index'
+  get 'tasks/show'
+  get 'tasks/new'
+  get 'tasks/edit'
   root to: 'users#show' #ログイン必要
 
   get 'signup', to: 'users#new'
@@ -8,4 +12,5 @@ Rails.application.routes.draw do
   post 'signin', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy' #ログイン必要
   
+  resources :tasks 
 end

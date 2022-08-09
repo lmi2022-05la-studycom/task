@@ -1,0 +1,6 @@
+<h1>タスクの編集</h1>
+<%= form_with model: @task do |f| %>
+    <p>content<br><%= f.text_field :content, value: @task.content %></p>
+    <p><%= f.submit %></p>
+    <p><%= link_to 'キャンセル', root_path(@task) %></p>
+<% end %>

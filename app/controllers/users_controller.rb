@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   before_action :already_logged_in, only: [:new, :create]
   def show
     @user = current_user
+    @tasks = current_user.tasks.all.order(:created_at).page(params[:page])
+    @task = Task.new
   end
 
   def new
