@@ -26,7 +26,6 @@ class SessionsController < ApplicationController
   private 
   def signin(email, password)
     @user = User.find_by(email: email)
-    p @user
     if @user && @user.authenticate(password)
       session[:user_id] = @user.id 
       return true

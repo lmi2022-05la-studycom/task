@@ -11,6 +11,19 @@
 </table>
 <% end %>
 
+<%# 一覧表示＆削除メソッドの配置 %>
+<%= form_with url: tasks_path, method: :get do |c| %>
+<table>
+    <tr>
+        <td><%= link_to 'todo一覧', users_show_path(status: 1) %></td>
+        <td><%= link_to 'doing一覧', users_show_path(status: 2) %></td>
+        <td><%= link_to 'done一覧', users_show_path(status: 3) %></td>
+        <td><%= link_to 'done一括削除', users_destroy_all_path, 
+        method: :delete, data: { confirm: '本当に削除しますか？'} %></td> 
+    </tr>
+</table>
+<% end %>
+
 <%# テーブルの配置 %>
 <table>
     <tr>
@@ -19,6 +32,7 @@
         <th>登録日時</th>
         <th>編集</th>
         <th>削除</th>
+        <th>ステータス</th>
     </tr>
     <% @tasks.each do |t| %>
     <tr>
@@ -28,6 +42,10 @@
         <td><%= link_to '編集', edit_task_path(t) %></td>
         <td><%= link_to '削除', task_path(t), method: :delete, 
         data: { confirm: '本当に削除しますか？'} %></td>
+        <td><%= form_with model: t do |f| %>
+            <%= f.select :status, {'todo': 1, 'doing': 2, 'done': 3} %>
+            <%= f.submit "更新" %>
+            <% end %></td>
     </tr>
     <% end %>
 </table>

@@ -47,7 +47,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:content)
+    params.require(:task).permit(:content, :status)
   end
   def set_task
     @task = Task.find(params[:id])
@@ -57,4 +57,5 @@ class TasksController < ApplicationController
       redirect_to root_path
     end
   end
+  
 end
