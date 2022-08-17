@@ -7,7 +7,13 @@
         <th><%= f.label :タスク登録 %></th>
         <td><%= f.text_field :content %></td>
         <th><%= f.label :タスク期限 %></th>
-        <td><%= f.text_field :limited_at %></td>
+        <td><input type="date" name="task[limited_at]", value="<%= @limited_at.strftime('%Y-%m-%d') %>"></td>
+        <td><select name="task[tag_id]">
+            <% @tags.each do |tag| %>
+            <option value="<%= tag.id %>"><%= tag.name %></option>
+            <% end %>
+            </select></td>
+            <%# 一回のループで終わる %>
         <td colspan="1"><%= f.submit '保存する' %></td>
     </tr>
 </table>
@@ -17,10 +23,10 @@
 
 <table>
     <tr>
-        <td><%= link_to 'todo一覧', users_show_path(status: 1) %></td>
-        <td><%= link_to 'doing一覧', users_show_path(status: 2) %></td>
-        <td><%= link_to 'done一覧', users_show_path(status: 3) %></td>
-        <td><%= link_to 'done一括削除', users_destroy_all_path, 
+        <td><%= link_to '未着手一覧', users_show_path(status: 1) %></td>
+        <td><%= link_to '実施中一覧', users_show_path(status: 2) %></td>
+        <td><%= link_to '完了一覧', users_show_path(status: 3) %></td>
+        <td><%= link_to '完了一括削除', users_destroy_all_path, 
         method: :delete, data: { confirm: '本当に削除しますか？'} %></td> 
     </tr>
 </table>
@@ -33,6 +39,7 @@
         <th>タスク内容</th>
         <th>登録日時</th>
         <th>期限</th>
+        <th>タグ</th>
         <th>編集</th>
         <th>削除</th>
         <th>ステータス</th>
@@ -41,8 +48,10 @@
     <tr>
         <%# <td><%= t.id %>
         <td><%= t.content %></td>
-        <td><%= t.started_at %></td>
-        <td><%= t.limited_at %></td>
+        <td><%= t.started_at&.strftime('%m月%d日') %></td>
+        <td><%= t.limited_at&.strftime('%m月%d日') %></td> 
+        <td><%= t.tag.name %></td>
+        <%# limited_dateがベター %>
         <td><%= link_to '編集', edit_task_path(t) %></td>
         <td><%= link_to '削除', task_path(t), method: :delete, 
         data: { confirm: '本当に削除しますか？'} %></td>

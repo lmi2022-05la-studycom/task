@@ -11,6 +11,8 @@ class UsersController < ApplicationController
       @tasks = current_user.tasks.all.order(:created_at).page(params[:page])
     end
     @task = Task.new
+    @limited_at = Time.zone.today + 9.hours + 1.days
+    @tags = Tag.all
   end
 
   def destroy_all

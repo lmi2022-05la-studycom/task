@@ -7,4 +7,5 @@ class User < ApplicationRecord
                uniqueness: { case_sensitive: false }
     has_secure_password
     has_many :tasks
+    # タグが複数存在しない想定
 end
