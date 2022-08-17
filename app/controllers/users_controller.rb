@@ -13,21 +13,6 @@ class UsersController < ApplicationController
     @task = Task.new
   end
 
-  # def index1
-  #   @tasks = Task.where(status: "todo").order(:created_at).page(params[:page])
-  #   @user = current_user
-  #   @task = Task.new
-  #   render "users/show.html.erb"
-  # end
-
-  # def index2
-  #   @tasks = Task.where(status: "doing")
-  # end
-
-  # def index3
-  #   @tasks = Task.where(status: "done")
-  # end
-
   # def deleteall
   #   @tasks = Task.where(status: "done")
   #   @tasks.delete_all
@@ -36,7 +21,8 @@ class UsersController < ApplicationController
   # end
 
   def destroy_all
-    @tasks = current_user.tasks.where(status: 'done').destroy_all
+    @tasks = current_user.tasks.where(status: 3).destroy_all
+    redirect_to root_path
   end
 
   def new

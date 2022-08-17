@@ -12,7 +12,7 @@
 <% end %>
 
 <%# 一覧表示＆削除メソッドの配置 %>
-<%= form_with url: tasks_path, method: :get do |c| %>
+
 <table>
     <tr>
         <td><%= link_to 'todo一覧', users_show_path(status: 1) %></td>
@@ -22,7 +22,7 @@
         method: :delete, data: { confirm: '本当に削除しますか？'} %></td> 
     </tr>
 </table>
-<% end %>
+
 
 <%# テーブルの配置 %>
 <table>

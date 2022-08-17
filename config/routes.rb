@@ -7,7 +7,16 @@ Rails.application.routes.draw do
 
   get 'users/show/:status', to: 'users#show', as: :users_show
 
-  delete 'users/destroy_all', to: 'users#destroy_all'
+  delete 'users/destroy_all', to: 'users#destroy_all', as: :users_destroy_all
+  # get 'users/destroy/:status', to: 'users#destroy', as: :users_destroy
+
+  # resources :users do
+  #   resources :tasks, only: [] do
+  #     collection do
+  #       delete '', action: :destroy_all
+  #     end
+  #   end
+  # end
 
   get 'signup', to: 'users#new'
   post 'signup', to: 'users#create'
