@@ -13,13 +13,6 @@ class UsersController < ApplicationController
     @task = Task.new
   end
 
-  # def deleteall
-  #   @tasks = Task.where(status: "done")
-  #   @tasks.delete_all
-  #   @task = Task.new
-  #   render 'users/show.html.erb'
-  # end
-
   def destroy_all
     @tasks = current_user.tasks.where(status: 3).destroy_all
     redirect_to root_path

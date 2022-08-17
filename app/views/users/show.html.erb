@@ -6,6 +6,8 @@
     <tr>
         <th><%= f.label :タスク登録 %></th>
         <td><%= f.text_field :content %></td>
+        <th><%= f.label :タスク期限 %></th>
+        <td><%= f.text_field :limited_at %></td>
         <td colspan="1"><%= f.submit '保存する' %></td>
     </tr>
 </table>
@@ -27,23 +29,25 @@
 <%# テーブルの配置 %>
 <table>
     <tr>
-        <th>id</th>
+        <%# <th>id</th> %>
         <th>タスク内容</th>
         <th>登録日時</th>
+        <th>期限</th>
         <th>編集</th>
         <th>削除</th>
         <th>ステータス</th>
     </tr>
     <% @tasks.each do |t| %>
     <tr>
-        <td><%= t.id %></td>
+        <%# <td><%= t.id %>
         <td><%= t.content %></td>
-        <td><%= t.created_at %></td>
+        <td><%= t.started_at %></td>
+        <td><%= t.limited_at %></td>
         <td><%= link_to '編集', edit_task_path(t) %></td>
         <td><%= link_to '削除', task_path(t), method: :delete, 
         data: { confirm: '本当に削除しますか？'} %></td>
         <td><%= form_with model: t do |f| %>
-            <%= f.select :status, {'todo': 1, 'doing': 2, 'done': 3} %>
+            <%= f.select :status, {'未着手': 1, '実施中': 2, '完了': 3} %>
             <%= f.submit "更新" %>
             <% end %></td>
     </tr>
