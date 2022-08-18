@@ -4,11 +4,15 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+    tag_ids = current_user.tasks.pluck(:tag_id)
+    @used_tag_list = Tag.where(id: tag_ids)
     status = params[:status]
     if status.present?
-      @tasks = current_user.tasks.where(status: status).order(:created_at).page(params[:page])
+      @tasks = current_user.tasks.where(status: status).order(:limited_at).order(:created_at).page(params[:page])
+    elsif params[:tag_id].present?
+      @tasks = current_user.tasks.where(tag_id: params[:tag_id]).order(:limited_at).order(:created_at).page(params[:page])
     else
-      @tasks = current_user.tasks.all.order(:created_at).page(params[:page])
+      @tasks = current_user.tasks.all.order(:limited_at).order(:created_at).page(params[:page])
     end
     @task = Task.new
     @limited_at = Time.zone.today + 9.hours + 1.days

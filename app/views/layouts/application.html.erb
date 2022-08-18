@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Taskapp</title>
+    <title>佑アプリ</title>
+    <%= favicon_link_tag('favicon.jpeg') %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,7 +12,8 @@
   </head>
 
   <body>
-    <p>
+    <nav>
+    <div class='navi'>
     <% if logged_in? %>
       <%= link_to 'HOME', root_path %>
       <%= link_to 'ログアウト', logout_path, method: :delete %>
@@ -19,7 +21,8 @@
       <%= link_to '会員登録', signup_path %>
       <%= link_to 'ログイン', signin_path %>
     <% end %>
-    </p>
+    </div>
+    </nav>
 
     <%= render 'commons/flash' %>
     <%= yield %>

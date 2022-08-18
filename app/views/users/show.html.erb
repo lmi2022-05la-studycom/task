@@ -1,27 +1,38 @@
 <h2><%= @user.name %>さんのタスク</h2>
 
+<div class='mastertable'>
 <%# フォームの配置(form_with) %>
+<div class='new'>
 <%= form_with model: @task do |f| %>
 <table>
     <tr>
         <th><%= f.label :タスク登録 %></th>
-        <td><%= f.text_field :content %></td>
+        <td><%= f.text_area :content %></td><br>
+    </tr>
+    <tr>
         <th><%= f.label :タスク期限 %></th>
         <td><input type="date" name="task[limited_at]", value="<%= @limited_at.strftime('%Y-%m-%d') %>"></td>
+    </tr>
+    <tr>
+        <th><%= f.label :タグ %></th>
         <td><select name="task[tag_id]">
             <% @tags.each do |tag| %>
             <option value="<%= tag.id %>"><%= tag.name %></option>
             <% end %>
             </select></td>
+    </tr>
+    <tr>
             <%# 一回のループで終わる %>
-        <td colspan="1"><%= f.submit '保存する' %></td>
+        <td class='create_button' colspan="2"><%= f.submit '保存する' %></td>
     </tr>
 </table>
 <% end %>
+</div>
 
 <%# 一覧表示＆削除メソッドの配置 %>
-
+<div class='sort1'>
 <table>
+    <th>フィルター機能</th>
     <tr>
         <td><%= link_to '未着手一覧', users_show_path(status: 1) %></td>
         <td><%= link_to '実施中一覧', users_show_path(status: 2) %></td>
@@ -30,9 +41,22 @@
         method: :delete, data: { confirm: '本当に削除しますか？'} %></td> 
     </tr>
 </table>
+</div>
+<div class='sort2'>
+<table>
+    <th>タグ一覧</th>
+    <tr>
+      <% @used_tag_list.each do |tag| %>
+        <td><%= link_to tag.name, "/users/show?tag_id=#{tag.id}" %></td>
+      <% end %>
+    </tr>
+</table>
+</div>
+</div>
 
 
 <%# テーブルの配置 %>
+<div class='lists' >
 <table>
     <tr>
         <%# <th>id</th> %>
@@ -62,5 +86,6 @@
     </tr>
     <% end %>
 </table>
+</div>
 
   <%= paginate @tasks %>
